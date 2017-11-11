@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BD_QuiensepegaModelStoreContainer" CdmEntityContainer="BD_QuiensepegaConexion">
+    <EntitySetMapping Name="Estados">
+      <EntityTypeMapping TypeName="BD_QuiensepegaModel.Estados">
+        <MappingFragment StoreEntitySet="Estados">
+          <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+          <ScalarProperty Name="NombreEstado" ColumnName="NombreEstado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mensajes">
+      <EntityTypeMapping TypeName="BD_QuiensepegaModel.Mensajes">
+        <MappingFragment StoreEntitySet="Mensajes">
+          <ScalarProperty Name="Id_mensaje" ColumnName="Id_mensaje" />
+          <ScalarProperty Name="Codigo_mensaje" ColumnName="Codigo_mensaje" />
+          <ScalarProperty Name="Tipo_mensaje" ColumnName="Tipo_mensaje" />
+          <ScalarProperty Name="Cuerpo_mensaje" ColumnName="Cuerpo_mensaje" />
+          <ScalarProperty Name="FKEstadoMensaje" ColumnName="FKEstadoMensaje" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Permisos">
+      <EntityTypeMapping TypeName="BD_QuiensepegaModel.Permisos">
+        <MappingFragment StoreEntitySet="Permisos">
+          <ScalarProperty Name="IdPermiso" ColumnName="IdPermiso" />
+          <ScalarProperty Name="NombrePermiso" ColumnName="NombrePermiso" />
+          <ScalarProperty Name="FKEstadoPermiso" ColumnName="FKEstadoPermiso" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="BD_QuiensepegaModel.Roles">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+          <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+          <ScalarProperty Name="FKEstadoRol" ColumnName="FKEstadoRol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RolesHasPermisos">
+      <EntityTypeMapping TypeName="BD_QuiensepegaModel.RolesHasPermisos">
+        <MappingFragment StoreEntitySet="RolesHasPermisos">
+          <ScalarProperty Name="IdRolHasPermiso" ColumnName="IdRolHasPermiso" />
+          <ScalarProperty Name="FKRole" ColumnName="FKRole" />
+          <ScalarProperty Name="FKPermiso" ColumnName="FKPermiso" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="BD_QuiensepegaModel.Usuarios">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="CorreoUsuario" ColumnName="CorreoUsuario" />
+          <ScalarProperty Name="ContraseniaUsuario" ColumnName="ContraseniaUsuario" />
+          <ScalarProperty Name="NombresUsuario" ColumnName="NombresUsuario" />
+          <ScalarProperty Name="ApellidosUsuaio" ColumnName="ApellidosUsuaio" />
+          <ScalarProperty Name="TelefonoUsuario" ColumnName="TelefonoUsuario" />
+          <ScalarProperty Name="ImagenUsuario" ColumnName="ImagenUsuario" />
+          <ScalarProperty Name="FKEstadoUsuario" ColumnName="FKEstadoUsuario" />
+          <ScalarProperty Name="FKRolUsuario" ColumnName="FKRolUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ViewMensajes">
+      <EntityTypeMapping TypeName="BD_QuiensepegaModel.ViewMensajes">
+        <MappingFragment StoreEntitySet="ViewMensajes">
+          <ScalarProperty Name="Id_mensaje" ColumnName="Id_mensaje" />
+          <ScalarProperty Name="Codigo_mensaje" ColumnName="Codigo_mensaje" />
+          <ScalarProperty Name="Tipo_mensaje" ColumnName="Tipo_mensaje" />
+          <ScalarProperty Name="Cuerpo_mensaje" ColumnName="Cuerpo_mensaje" />
+          <ScalarProperty Name="FKEstadoMensaje" ColumnName="FKEstadoMensaje" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_Ingresar" FunctionName="BD_QuiensepegaModel.Store.SP_Ingresar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BD_QuiensepegaModel.SP_Ingresar_Result">
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="mensaje" ColumnName="mensaje" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_Registro" FunctionName="BD_QuiensepegaModel.Store.SP_Registro">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BD_QuiensepegaModel.SP_Registro_Result">
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="mensaje" ColumnName="mensaje" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

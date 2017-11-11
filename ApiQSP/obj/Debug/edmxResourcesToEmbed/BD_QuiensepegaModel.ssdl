@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BD_QuiensepegaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Estados">
+    <Key>
+      <PropertyRef Name="IdEstado" />
+    </Key>
+    <Property Name="IdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreEstado" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Mensajes">
+    <Key>
+      <PropertyRef Name="Id_mensaje" />
+    </Key>
+    <Property Name="Id_mensaje" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo_mensaje" Type="int" Nullable="false" />
+    <Property Name="Tipo_mensaje" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Cuerpo_mensaje" Type="varchar(max)" Nullable="false" />
+    <Property Name="FKEstadoMensaje" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Permisos">
+    <Key>
+      <PropertyRef Name="IdPermiso" />
+    </Key>
+    <Property Name="IdPermiso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombrePermiso" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FKEstadoPermiso" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreRol" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="FKEstadoRol" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RolesHasPermisos">
+    <Key>
+      <PropertyRef Name="IdRolHasPermiso" />
+    </Key>
+    <Property Name="IdRolHasPermiso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FKRole" Type="int" Nullable="false" />
+    <Property Name="FKPermiso" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CorreoUsuario" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="ContraseniaUsuario" Type="varbinary(max)" Nullable="false" />
+    <Property Name="NombresUsuario" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ApellidosUsuaio" Type="nvarchar" MaxLength="100" />
+    <Property Name="TelefonoUsuario" Type="nvarchar" MaxLength="50" />
+    <Property Name="ImagenUsuario" Type="nvarchar" MaxLength="100" />
+    <Property Name="FKEstadoUsuario" Type="int" Nullable="false" />
+    <Property Name="FKRolUsuario" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'BD_Quiensepega.dbo.ViewMensajes' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ViewMensajes">
+    <Key>
+      <PropertyRef Name="Id_mensaje" />
+      <PropertyRef Name="Codigo_mensaje" />
+      <PropertyRef Name="Tipo_mensaje" />
+      <PropertyRef Name="Cuerpo_mensaje" />
+      <PropertyRef Name="FKEstadoMensaje" />
+    </Key>
+    <Property Name="Id_mensaje" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo_mensaje" Type="int" Nullable="false" />
+    <Property Name="Tipo_mensaje" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Cuerpo_mensaje" Type="varchar(max)" Nullable="false" />
+    <Property Name="FKEstadoMensaje" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_MensajesEstados">
+    <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+    <End Role="Mensajes" Type="Self.Mensajes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estados">
+        <PropertyRef Name="IdEstado" />
+      </Principal>
+      <Dependent Role="Mensajes">
+        <PropertyRef Name="FKEstadoMensaje" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PermisosEstados">
+    <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+    <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estados">
+        <PropertyRef Name="IdEstado" />
+      </Principal>
+      <Dependent Role="Permisos">
+        <PropertyRef Name="FKEstadoPermiso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolesEstados">
+    <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+    <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estados">
+        <PropertyRef Name="IdEstado" />
+      </Principal>
+      <Dependent Role="Roles">
+        <PropertyRef Name="FKEstadoRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolesHasPermisosPermisos">
+    <End Role="Permisos" Type="Self.Permisos" Multiplicity="1" />
+    <End Role="RolesHasPermisos" Type="Self.RolesHasPermisos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permisos">
+        <PropertyRef Name="IdPermiso" />
+      </Principal>
+      <Dependent Role="RolesHasPermisos">
+        <PropertyRef Name="FKPermiso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolesHasPermisosRoles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="RolesHasPermisos" Type="Self.RolesHasPermisos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="RolesHasPermisos">
+        <PropertyRef Name="FKRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsuariosEstados">
+    <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estados">
+        <PropertyRef Name="IdEstado" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="FKEstadoUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsuariosRoles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="FKRolUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="SP_Ingresar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="nvarchar" Mode="In" />
+    <Parameter Name="contrasenia" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="SP_Registro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Correo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Contrasenia" Type="nvarchar" Mode="In" />
+    <Parameter Name="Nombres" Type="nvarchar" Mode="In" />
+    <Parameter Name="Apellidos" Type="nvarchar" Mode="In" />
+    <Parameter Name="Telefono" Type="nvarchar" Mode="In" />
+    <Parameter Name="Imagen" Type="nvarchar" Mode="In" />
+    <Parameter Name="Estado" Type="int" Mode="In" />
+    <Parameter Name="Rol" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="BD_QuiensepegaModelStoreContainer">
+    <EntitySet Name="Estados" EntityType="Self.Estados" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mensajes" EntityType="Self.Mensajes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Permisos" EntityType="Self.Permisos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RolesHasPermisos" EntityType="Self.RolesHasPermisos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ViewMensajes" EntityType="Self.ViewMensajes" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ViewMensajes].[Id_mensaje] AS [Id_mensaje], 
+    [ViewMensajes].[Codigo_mensaje] AS [Codigo_mensaje], 
+    [ViewMensajes].[Tipo_mensaje] AS [Tipo_mensaje], 
+    [ViewMensajes].[Cuerpo_mensaje] AS [Cuerpo_mensaje], 
+    [ViewMensajes].[FKEstadoMensaje] AS [FKEstadoMensaje]
+    FROM [dbo].[ViewMensajes] AS [ViewMensajes]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_MensajesEstados" Association="Self.FK_MensajesEstados">
+      <End Role="Estados" EntitySet="Estados" />
+      <End Role="Mensajes" EntitySet="Mensajes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PermisosEstados" Association="Self.FK_PermisosEstados">
+      <End Role="Estados" EntitySet="Estados" />
+      <End Role="Permisos" EntitySet="Permisos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolesEstados" Association="Self.FK_RolesEstados">
+      <End Role="Estados" EntitySet="Estados" />
+      <End Role="Roles" EntitySet="Roles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolesHasPermisosPermisos" Association="Self.FK_RolesHasPermisosPermisos">
+      <End Role="Permisos" EntitySet="Permisos" />
+      <End Role="RolesHasPermisos" EntitySet="RolesHasPermisos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolesHasPermisosRoles" Association="Self.FK_RolesHasPermisosRoles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="RolesHasPermisos" EntitySet="RolesHasPermisos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsuariosEstados" Association="Self.FK_UsuariosEstados">
+      <End Role="Estados" EntitySet="Estados" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsuariosRoles" Association="Self.FK_UsuariosRoles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

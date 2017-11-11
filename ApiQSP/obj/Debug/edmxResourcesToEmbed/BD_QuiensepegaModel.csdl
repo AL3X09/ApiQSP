@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BD_QuiensepegaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Estados">
+    <Key>
+      <PropertyRef Name="IdEstado" />
+    </Key>
+    <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreEstado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Mensajes" Relationship="Self.FK_MensajesEstados" FromRole="Estados" ToRole="Mensajes" />
+    <NavigationProperty Name="Permisos" Relationship="Self.FK_PermisosEstados" FromRole="Estados" ToRole="Permisos" />
+    <NavigationProperty Name="Roles" Relationship="Self.FK_RolesEstados" FromRole="Estados" ToRole="Roles" />
+    <NavigationProperty Name="Usuarios" Relationship="Self.FK_UsuariosEstados" FromRole="Estados" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Mensajes">
+    <Key>
+      <PropertyRef Name="Id_mensaje" />
+    </Key>
+    <Property Name="Id_mensaje" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo_mensaje" Type="Int32" Nullable="false" />
+    <Property Name="Tipo_mensaje" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Cuerpo_mensaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FKEstadoMensaje" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Estados" Relationship="Self.FK_MensajesEstados" FromRole="Mensajes" ToRole="Estados" />
+  </EntityType>
+  <EntityType Name="Permisos">
+    <Key>
+      <PropertyRef Name="IdPermiso" />
+    </Key>
+    <Property Name="IdPermiso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombrePermiso" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FKEstadoPermiso" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Estados" Relationship="Self.FK_PermisosEstados" FromRole="Permisos" ToRole="Estados" />
+    <NavigationProperty Name="RolesHasPermisos" Relationship="Self.FK_RolesHasPermisosPermisos" FromRole="Permisos" ToRole="RolesHasPermisos" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreRol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FKEstadoRol" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Estados" Relationship="Self.FK_RolesEstados" FromRole="Roles" ToRole="Estados" />
+    <NavigationProperty Name="RolesHasPermisos" Relationship="Self.FK_RolesHasPermisosRoles" FromRole="Roles" ToRole="RolesHasPermisos" />
+    <NavigationProperty Name="Usuarios" Relationship="Self.FK_UsuariosRoles" FromRole="Roles" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="RolesHasPermisos">
+    <Key>
+      <PropertyRef Name="IdRolHasPermiso" />
+    </Key>
+    <Property Name="IdRolHasPermiso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FKRole" Type="Int32" Nullable="false" />
+    <Property Name="FKPermiso" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Permisos" Relationship="Self.FK_RolesHasPermisosPermisos" FromRole="RolesHasPermisos" ToRole="Permisos" />
+    <NavigationProperty Name="Roles" Relationship="Self.FK_RolesHasPermisosRoles" FromRole="RolesHasPermisos" ToRole="Roles" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CorreoUsuario" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContraseniaUsuario" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="NombresUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ApellidosUsuaio" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TelefonoUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ImagenUsuario" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="FKEstadoUsuario" Type="Int32" Nullable="false" />
+    <Property Name="FKRolUsuario" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Estados" Relationship="Self.FK_UsuariosEstados" FromRole="Usuarios" ToRole="Estados" />
+    <NavigationProperty Name="Roles" Relationship="Self.FK_UsuariosRoles" FromRole="Usuarios" ToRole="Roles" />
+  </EntityType>
+  <EntityType Name="ViewMensajes">
+    <Key>
+      <PropertyRef Name="Id_mensaje" />
+      <PropertyRef Name="Codigo_mensaje" />
+      <PropertyRef Name="Tipo_mensaje" />
+      <PropertyRef Name="Cuerpo_mensaje" />
+      <PropertyRef Name="FKEstadoMensaje" />
+    </Key>
+    <Property Name="Id_mensaje" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo_mensaje" Type="Int32" Nullable="false" />
+    <Property Name="Tipo_mensaje" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Cuerpo_mensaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FKEstadoMensaje" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_MensajesEstados">
+    <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+    <End Role="Mensajes" Type="Self.Mensajes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estados">
+        <PropertyRef Name="IdEstado" />
+      </Principal>
+      <Dependent Role="Mensajes">
+        <PropertyRef Name="FKEstadoMensaje" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PermisosEstados">
+    <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+    <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estados">
+        <PropertyRef Name="IdEstado" />
+      </Principal>
+      <Dependent Role="Permisos">
+        <PropertyRef Name="FKEstadoPermiso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolesEstados">
+    <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+    <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estados">
+        <PropertyRef Name="IdEstado" />
+      </Principal>
+      <Dependent Role="Roles">
+        <PropertyRef Name="FKEstadoRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsuariosEstados">
+    <End Role="Estados" Type="Self.Estados" Multiplicity="1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estados">
+        <PropertyRef Name="IdEstado" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="FKEstadoUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolesHasPermisosPermisos">
+    <End Role="Permisos" Type="Self.Permisos" Multiplicity="1" />
+    <End Role="RolesHasPermisos" Type="Self.RolesHasPermisos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permisos">
+        <PropertyRef Name="IdPermiso" />
+      </Principal>
+      <Dependent Role="RolesHasPermisos">
+        <PropertyRef Name="FKPermiso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolesHasPermisosRoles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="RolesHasPermisos" Type="Self.RolesHasPermisos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="RolesHasPermisos">
+        <PropertyRef Name="FKRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsuariosRoles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="FKRolUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BD_QuiensepegaConexion" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Estados" EntityType="Self.Estados" />
+    <EntitySet Name="Mensajes" EntityType="Self.Mensajes" />
+    <EntitySet Name="Permisos" EntityType="Self.Permisos" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" />
+    <EntitySet Name="RolesHasPermisos" EntityType="Self.RolesHasPermisos" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+    <EntitySet Name="ViewMensajes" EntityType="Self.ViewMensajes" />
+    <AssociationSet Name="FK_MensajesEstados" Association="Self.FK_MensajesEstados">
+      <End Role="Estados" EntitySet="Estados" />
+      <End Role="Mensajes" EntitySet="Mensajes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PermisosEstados" Association="Self.FK_PermisosEstados">
+      <End Role="Estados" EntitySet="Estados" />
+      <End Role="Permisos" EntitySet="Permisos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolesEstados" Association="Self.FK_RolesEstados">
+      <End Role="Estados" EntitySet="Estados" />
+      <End Role="Roles" EntitySet="Roles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsuariosEstados" Association="Self.FK_UsuariosEstados">
+      <End Role="Estados" EntitySet="Estados" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolesHasPermisosPermisos" Association="Self.FK_RolesHasPermisosPermisos">
+      <End Role="Permisos" EntitySet="Permisos" />
+      <End Role="RolesHasPermisos" EntitySet="RolesHasPermisos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolesHasPermisosRoles" Association="Self.FK_RolesHasPermisosRoles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="RolesHasPermisos" EntitySet="RolesHasPermisos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsuariosRoles" Association="Self.FK_UsuariosRoles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <FunctionImport Name="SP_Ingresar" ReturnType="Collection(BD_QuiensepegaModel.SP_Ingresar_Result)">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="contrasenia" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SP_Registro" ReturnType="Collection(BD_QuiensepegaModel.SP_Registro_Result)">
+      <Parameter Name="Correo" Mode="In" Type="String" />
+      <Parameter Name="Contrasenia" Mode="In" Type="String" />
+      <Parameter Name="Nombres" Mode="In" Type="String" />
+      <Parameter Name="Apellidos" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="String" />
+      <Parameter Name="Imagen" Mode="In" Type="String" />
+      <Parameter Name="Estado" Mode="In" Type="Int32" />
+      <Parameter Name="Rol" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="SP_Ingresar_Result">
+    <Property Type="Int32" Name="codigo" Nullable="false" />
+    <Property Type="String" Name="tipo" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="mensaje" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_Registro_Result">
+    <Property Type="Int32" Name="codigo" Nullable="false" />
+    <Property Type="String" Name="tipo" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="mensaje" Nullable="false" />
+  </ComplexType>
+</Schema>

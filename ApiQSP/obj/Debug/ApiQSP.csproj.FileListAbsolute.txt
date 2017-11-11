@@ -56,3 +56,7 @@ D:\NETAPPS\ApiQSP\ApiQSP\obj\Debug\ApiQSP.csprojResolveAssemblyReference.cache
 D:\NETAPPS\ApiQSP\ApiQSP\obj\Debug\ApiQSP.csproj.CoreCompileInputs.cache
 D:\NETAPPS\ApiQSP\ApiQSP\obj\Debug\ApiQSP.dll
 D:\NETAPPS\ApiQSP\ApiQSP\obj\Debug\ApiQSP.pdb
+D:\NETAPPS\ApiQSP\ApiQSP\bin\EntityFramework.dll
+D:\NETAPPS\ApiQSP\ApiQSP\bin\EntityFramework.SqlServer.dll
+D:\NETAPPS\ApiQSP\ApiQSP\bin\EntityFramework.xml
+D:\NETAPPS\ApiQSP\ApiQSP\bin\EntityFramework.SqlServer.xml
