@@ -26,10 +26,7 @@ namespace ApiQSP.Models
 
     public class RegistroUsuarioModel
     {
-        [Required]
-        [Display(Name = "Codigo Prestador")]
-        public string CodPrestador { get; set; }
-
+        
         [Required]
         [Display(Name = "Correo electrónico")]
         public string Email { get; set; }
@@ -54,10 +51,6 @@ namespace ApiQSP.Models
         public string Nombres { get; set; }
 
         public string Apellidos { get; set; }
-
-        [Required]
-        [Display(Name = "Razon social")]
-        public string RazonSocial { get; set; }
 
         public string Telefono { get; set; }
 
